@@ -4,29 +4,24 @@ class Solution(object):
         :type s: str
         :rtype: bool
         """
-        circle_bracket_left = 0
-        curly_bracket_left = 0
-        square_bracket_left = 0
-        
-        circle_bracket_right = 0
-        curly_bracket_right = 0
-        square_bracket_right = 0
-        
-        for x in s:
-            if (x == "("):
-                circle_bracket_left += 1
-            elif (x == ")"):
-                circle_bracket_right += 1
-            elif (x == "{"):
-                curly_bracket_left += 1
-            elif (x == "}"):
-                curly_bracket_right += 1
-            elif (x == "["):
-                square_bracket_left += 1
-            elif (x == "]"):
-                square_bracket_right += 1
-        
-        if ((circle_bracket_left == circle_bracket_right) and (curly_bracket_left == curly_bracket_right) and       (square_bracket_left == square_bracket_right)):
-            return True
-        else:
-            return False
+        stack = []
+        dic = {"(":")","{":"}","[":"]"}
+
+        for cha in s:
+            if (cha in dic.keys()):
+                stack.append(cha)
+            elif (cha in dic.values()):
+                if (len(stack) == 0):
+                    return False
+                else:
+                    check = stack.pop()
+                    if (dic[check] == cha):
+                        continue
+                    else:
+                        return False
+            else:
+                print("You did not enter a bracket")
+        return (len(stack) == 0)
+
+
+            
